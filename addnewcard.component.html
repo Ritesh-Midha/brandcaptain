@@ -1,0 +1,62 @@
+<h1 *ngIf="data.row === undefined">Add new employee</h1>
+<h1 *ngIf="data.row !== undefined">Edit employee details</h1>
+<form [formGroup]="registerForm">
+
+  <mat-form-field class="example-full-width">
+    <mat-label>EmployeeId</mat-label>
+    <input required type="text" pattern="[0-9]+" matInput #employeeid placeholder="Ex. 1234" formControlName="employeeid">
+    <mat-error *ngIf="registerForm.controls.employeeid.hasError('required')" align="start"><strong>Please enter your
+      EmployeeId</strong> </mat-error>
+    <mat-error *ngIf="registerForm.controls.employeeid.hasError('pattern')" align="start"><strong>Digits Only.</strong> </mat-error>
+    <mat-error *ngIf="registerForm.controls.employeeid.hasError('duplicate')" align="start"><strong>Duplicate not allowed</strong> </mat-error>
+  </mat-form-field>
+
+  <div class="clear"></div>
+
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Fullname</mat-label>
+        <input matInput pattern="^[a-zA-Z ]*$" #message maxlength="256" placeholder="Ex. Ritesh Midha" formControlName="fullName">
+        <mat-hint align="start"><strong>First name and Last name</strong> </mat-hint>
+        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+        <mat-error *ngIf="registerForm.controls.fullName.invalid" align="start"><strong>Please enter your
+            Fullname</strong> </mat-error>
+        <!-- <mat-error *ngIf="registerForm.controls.fullName.hasError('fullnamearrayInvalid')" align="start"><strong>Please
+            enter your
+            Fullname</strong> </mat-error> -->
+      </mat-form-field>
+  
+      <div class="clear"></div>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>E-mail</mat-label>
+        <input matInput #email maxlength="256" placeholder="Ex. ritesh.midha@gmail.com" formControlName="email"
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+        <mat-hint align="end">{{email.value.length}} / 256</mat-hint>
+        <mat-error *ngIf="registerForm.controls.email.hasError('pattern')" align="start"><strong>Please enter valid E-mail
+            Id</strong> </mat-error>
+        <mat-error *ngIf="registerForm.controls.email.hasError('required')" align="start"><strong>Please enter your E-mail
+            Id</strong> </mat-error>
+            <mat-error *ngIf="registerForm.controls.email.hasError('duplicate')" align="start"><strong>Duplicate not allowed</strong> </mat-error>
+      </mat-form-field>
+      <div class="clear"></div>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Age</mat-label>
+        <input required type="text" pattern="[0-9]+" matInput #age formControlName="age" max="120" min="18">
+        <mat-error *ngIf="registerForm.controls.age.hasError('max')" align="start">Age should be less than <strong>120
+            year</strong> </mat-error>
+        <mat-error *ngIf="registerForm.controls.age.hasError('min')" align="start">Age should be more than or equal to
+          <strong>18 year</strong> </mat-error>
+        <mat-error *ngIf="registerForm.controls.age.hasError('required')" align="start"><strong>Please enter your
+            age</strong> </mat-error>
+            <mat-error *ngIf="registerForm.controls.age.hasError('pattern')" align="start"><strong>Digits Only.</strong> </mat-error>
+      </mat-form-field>
+
+      <div mat-dialog-actions>
+        <button type="button" mat-button [mat-dialog-close]="undefined">Cancel</button>
+        <button *ngIf="data.row === undefined" type="submit" [disabled]="!registerForm.valid" mat-button (click)="closedialog('new')" cdkFocusInitial>Submit</button>
+        <button *ngIf="data.row !== undefined" type="submit" [disabled]="!registerForm.valid" mat-button (click)="closedialog('edit')" cdkFocusInitial>Save</button>
+      </div>
+</form>
+

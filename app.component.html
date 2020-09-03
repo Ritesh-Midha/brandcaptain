@@ -1,0 +1,56 @@
+
+  <mat-icon (click)="addTags()" class="addbutton" matTooltip="Add New Employee">
+    add
+  </mat-icon>
+  <div class="clear"></div>
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8" style="width:80%">
+    <table mat-table [dataSource]="dataSource" >
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="employeeid">
+        <th mat-header-cell *matHeaderCellDef > ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.employeeid}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="fullName">
+        <th mat-header-cell *matHeaderCellDef > Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.fullName}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef > Age </th>
+        <td mat-cell *matCellDef="let row"> {{row.age}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef > Email </th>
+        <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let row;let index = index">
+          <mat-icon matTooltip="Edit employee details" (click)="addTags(row, index)">edit</mat-icon>
+          <mat-icon matTooltip="Delete employee" (click)="deleterow(row, index)">delete</mat-icon></td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+  </div>
+  
+  
+  <!-- Copyright 2020 Google LLC. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->
+<router-outlet></router-outlet>
